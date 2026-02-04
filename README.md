@@ -1,0 +1,1 @@
+# mnp-react-whiz-productpage
