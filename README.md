@@ -13,11 +13,13 @@ React
 
 JavaScript
 
-HTML5 / CSS3
+HTML5 
+
+CSS3 or Bootstrap
 
 Node.js & Express (backend)
 
-Database (PostgreSQL / MySQL / MongoDB)
+Database (PostgreSQL)
 
 ### Features
 
