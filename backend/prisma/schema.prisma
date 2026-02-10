@@ -1,0 +1,112 @@
+generator client {
+  provider = "prisma-client-js"
+}
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Course {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+  rating      Float
+  learners    Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  pricing      Pricing?
+  features     CourseFeature[]
+  stats        CourseStat[]
+  faqs         Faq[]
+  testimonials Testimonial[]
+  examInfo     ExamInfo?
+  eligibility  EligibilityPoint[]
+}
+
+model Pricing {
+  id           Int   @id @default(autoincrement())
+  sellingPrice Float
+  costPrice    Float
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  courseId Int @unique
+  course   Course @relation(fields: [courseId], references: [id])
+}
+
+model CourseFeature {
+  id   Int    @id @default(autoincrement())
+  text String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  courseId Int
+  course   Course @relation(fields: [courseId], references: [id])
+}
+
+model CourseStat {
+  id    Int    @id @default(autoincrement())
+  label String
+  value String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  courseId Int
+  course   Course @relation(fields: [courseId], references: [id])
+}
+
+model Faq {
+  id       Int    @id @default(autoincrement())
+  question String
+  answer   String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  courseId Int
+  course   Course @relation(fields: [courseId], references: [id])
+}
+
+model Testimonial {
+  id      Int    @id @default(autoincrement())
+  name    String
+  role    String
+  message String
+  rating  Float
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  courseId Int
+  course   Course @relation(fields: [courseId], references: [id])
+}
+
+model ExamInfo {
+  id       Int    @id @default(autoincrement())
+  format   String
+  duration String
+  cost     Float
+  language String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  courseId Int @unique
+  course   Course @relation(fields: [courseId], references: [id])
+}
+
+model EligibilityPoint {
+  id   Int    @id @default(autoincrement())
+  text String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  courseId Int
+  course   Course @relation(fields: [courseId], references: [id])
+  }
