@@ -1,19 +1,17 @@
 generator client {
-  provider     = "prisma-client-js"
-  moduleFormat = "cjs"
+  provider = "prisma-client-js"
 }
-
 datasource db {
   provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model Course {
-  id          BigInt   @id @default(autoincrement())
-  title       String   @db.VarChar(255)
-  description String   @db.VarChar(2000)
-
-  rating      Float?
-  learners    BigInt?
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+  rating      Float
+  learners    Int
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -28,93 +26,87 @@ model Course {
 }
 
 model Pricing {
-  id           BigInt @id @default(autoincrement())
+  id           Int   @id @default(autoincrement())
   sellingPrice Float
-  offerPrice    Float
+  costPrice    Float
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  courseId BigInt @unique
+  courseId Int @unique
   course   Course @relation(fields: [courseId], references: [id])
 }
 
 model CourseFeature {
-  id   BigInt @id @default(autoincrement())
-  text String @db.VarChar(500)
+  id   Int    @id @default(autoincrement())
+  text String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  courseId BigInt
+  courseId Int
   course   Course @relation(fields: [courseId], references: [id])
-
-  @@unique([courseId, text])
 }
 
 model CourseStat {
-  id    BigInt @id @default(autoincrement())
-  label String @db.VarChar(100)
-  value String @db.VarChar(100)
+  id    Int    @id @default(autoincrement())
+  label String
+  value String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  courseId BigInt
+  courseId Int
   course   Course @relation(fields: [courseId], references: [id])
 }
 
 model Faq {
-  id       BigInt @id @default(autoincrement())
-  question String @db.VarChar(500)
-  answer   String @db.VarChar(2000)
+  id       Int    @id @default(autoincrement())
+  question String
+  answer   String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  courseId BigInt
+  courseId Int
   course   Course @relation(fields: [courseId], references: [id])
-
-  @@unique([courseId, question])
 }
 
 model Testimonial {
-  id      BigInt @id @default(autoincrement())
-  name    String @db.VarChar(150)
-  role    String? @db.VarChar(150)
-  message String @db.VarChar(1000)
+  id      Int    @id @default(autoincrement())
+  name    String
+  role    String
+  message String
   rating  Float
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  courseId BigInt
+  courseId Int
   course   Course @relation(fields: [courseId], references: [id])
 }
 
 model ExamInfo {
-  id       BigInt @id @default(autoincrement())
-  format   String @db.VarChar(100)
-  duration String @db.VarChar(100)
+  id       Int    @id @default(autoincrement())
+  format   String
+  duration String
   cost     Float
-  language String @db.VarChar(100)
+  language String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  courseId BigInt @unique
+  courseId Int @unique
   course   Course @relation(fields: [courseId], references: [id])
 }
 
 model EligibilityPoint {
-  id   BigInt @id @default(autoincrement())
-  text String @db.VarChar(500)
+  id   Int    @id @default(autoincrement())
+  text String
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  courseId BigInt
+  courseId Int
   course   Course @relation(fields: [courseId], references: [id])
-
-  @@unique([courseId, text])
-}
+  }

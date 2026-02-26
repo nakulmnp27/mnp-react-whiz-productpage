@@ -1,0 +1,16 @@
+import { ApiProperty } from '@nestjs/swagger'
+import { IsString, IsOptional, IsNumber, Min, Max } from 'class-validator'
+
+export class UpdateTestimonialDto {
+  @ApiProperty({ example: 'Updated testimonial message' })
+  @IsString()
+  @IsOptional()
+  message?: string
+
+  @ApiProperty({ example: 4 })
+  @IsNumber()
+  @Min(1)
+  @Max(5)
+  @IsOptional()
+  rating?: number
+}
