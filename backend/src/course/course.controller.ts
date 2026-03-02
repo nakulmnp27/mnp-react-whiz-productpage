@@ -40,4 +40,10 @@ export class CourseController {
 @ApiOperation({ summary: 'Delete course' })
   remove(@Param('id', ParseIntPipe) id: number) {
     return this.service.remove(id) }
+
+
+  @Get(':id/full')
+getFullCourse(@Param('id') id: string) {
+  return this.service.getFullCourse(BigInt(id));
+}
 }

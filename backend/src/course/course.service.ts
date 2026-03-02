@@ -36,4 +36,17 @@ const course = await this.repo.findById(id)
   remove(id: number) {
     return this.repo.delete(id)
   }
+
+  async getFullCourse(courseId: bigint) {
+    const course = await this.repo.findFullById(courseId);
+  
+    if (!course) {
+      throw new NotFoundException("Course not found");
+    }
+  
+    return course;
+  }
 }
+
+
+
