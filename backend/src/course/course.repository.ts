@@ -8,6 +8,7 @@ export interface CourseRepository {
   findById(id: number): Promise<Course | null>
   update(id: number, data: Partial<Course>): Promise<Course>
   delete(id: number): Promise<Course>
+  findFullById(courseId: bigint): Promise<Course | null>
 }
 
 @Injectable()
@@ -40,5 +41,20 @@ delete(id: number) {
       where: { id },
     })
   }
+
+async findFullById(courseId: bigint) {
+  return this.prisma.course.findUnique({
+    where: { id: courseId },
+    include: {
+      pricing: true,
+      features: true,
+      stats: true,
+      faqs: true,
+      testimonials: true,
+      examInfo: true,
+      eligibility: true,
+    },
+  });
+}
   
 }
