@@ -6,12 +6,10 @@ import { UpdateTestimonialDto } from './dto/update-testimonial.dto'
 @Injectable()
 export class TestimonialsService {
   constructor(private readonly repo: PrismaTestimonialsRepository) {}
-
   getByCourse(courseId: number) {
     if (courseId <= 0) {
       throw new BadRequestException('invalid course id')
     }
-
     return this.repo.findByCourse(BigInt(courseId))
   }
 
@@ -19,7 +17,6 @@ export class TestimonialsService {
     if (courseId <= 0) {
       throw new BadRequestException('invalid course id')
     }
-
     const course = await this.repo.findCourseById(BigInt(courseId))
     if (!course) {
     throw new NotFoundException('course not found')
@@ -31,6 +28,7 @@ export class TestimonialsService {
       dto.role,
       dto.message.trim(),
       dto.rating,
+      dto.profile
     )
   }
 
@@ -46,10 +44,12 @@ update(testimonialId: number, dto: UpdateTestimonialDto) {
   try {
     return this.repo.update(
       BigInt(testimonialId),
-      dto.message.trim(),
+      dto.message?.trim(),
       dto.rating,
+      dto.profile?.trim(),
     )
-  } catch {
+  } 
+catch {
     throw new NotFoundException('testimonial not found')
   }
 }

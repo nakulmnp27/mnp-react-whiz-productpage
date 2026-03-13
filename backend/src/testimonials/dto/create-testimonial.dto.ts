@@ -1,13 +1,13 @@
 import { ApiProperty } from '@nestjs/swagger'
-import { IsString, IsNotEmpty, IsNumber, Min, Max } from 'class-validator'
+import { IsString, IsNotEmpty, IsNumber, Min, Max, IsOptional } from 'class-validator'
 
 export class CreateTestimonialDto {
-  @ApiProperty({ example: 'Rahul Sharma' })
+  @ApiProperty({ example: 'its_mnp' })
   @IsString()
   @IsNotEmpty()
   name: string
 
-  @ApiProperty({ example: 'Software Engineer' })
+  @ApiProperty({ example: 'Senior Software Architect' })
   @IsString()
   @IsNotEmpty()
   role: string
@@ -22,4 +22,9 @@ export class CreateTestimonialDto {
   @Min(1)
   @Max(5)
   rating: number
+
+  @ApiProperty ({example: "default.png"})
+  @IsString()
+  @IsOptional()
+  profile:string
 }

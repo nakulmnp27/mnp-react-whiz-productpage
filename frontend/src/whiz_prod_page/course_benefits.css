@@ -1,0 +1,49 @@
+.benefit-card{
+  background:#fdeee7;
+  border:1px solid #f3d2c6;
+  border-radius:16px;
+}
+
+.benefit-title{
+  font-weight:600;
+}
+
+.benefit-description{
+  color:#555;
+  font-size:14px;
+}
+
+
+
+.testimonial-header{
+background:#e9d3b6;
+}
+
+.testimonial-rating{
+background:linear-gradient(90deg,#ff5a3d,#ff9a1a);
+}
+
+.rating-bar{
+height:8px;
+background:#f6c38a;
+border-radius:4px;
+overflow:hidden;
+}
+
+.rating-bar .fill{
+display:block;
+height:100%;
+background:white;
+border-radius:4px;
+}
+
+.testimonial-card{
+border:1px solid #f1c3b8;
+background:#fff;
+    
+}
+
+.quote-icon{
+font-size:40px;
+color:#ff5a3d;
+}

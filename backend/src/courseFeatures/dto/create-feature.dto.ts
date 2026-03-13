@@ -1,9 +1,29 @@
 import { ApiProperty } from '@nestjs/swagger'
-import { IsString, IsNotEmpty } from 'class-validator'
+import { IsString, IsNotEmpty, MaxLength } from 'class-validator'
 
 export class CreateFeatureDto {
-  @ApiProperty({ example: 'Live doubt clearing sessions' })
+
+  @ApiProperty({
+    example: 'unlock.png',
+  })
   @IsString()
   @IsNotEmpty()
-  text: string
+  @MaxLength(255)
+  icon: string
+
+  @ApiProperty({
+    example: 'Unlimited Access',
+  })
+  @IsString()
+  @IsNotEmpty()
+  @MaxLength(200)
+  title: string
+
+  @ApiProperty({
+    example: 'You purchase once and can access the course for two years.',
+  })
+  @IsString()
+  @IsNotEmpty()
+  @MaxLength(500)
+  description: string
 }

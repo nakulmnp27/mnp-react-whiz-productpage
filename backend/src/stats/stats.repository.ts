@@ -4,32 +4,29 @@ import { Injectable } from '@nestjs/common'
 
 export interface StatsRepository {
   findByCourse(courseId: bigint): Promise<CourseStat[]>
-  create(courseId: bigint, label: string, value: string): Promise<CourseStat>
-  update(id: bigint, value: string): Promise<CourseStat>
+  create(courseId: bigint,icon: string, label: string, value: string): Promise<CourseStat>
+  update(id: bigint, value: string, icon?:string, label?: string): Promise<CourseStat>
   delete(id: bigint): Promise<CourseStat>
   findCourseById(courseId: bigint):Promise<Course | null>
 }
-
 @Injectable()
 export class PrismaStatsRepository implements StatsRepository {
   constructor(private readonly prisma: PrismaService) {}
-
   findByCourse(courseId: bigint) {
     return this.prisma.courseStat.findMany({
       where: { courseId },
     })
   }
 
-  create(courseId: bigint, label: string, value: string) {
+  create(courseId: bigint, icon: string, label: string, value: string) {
     return this.prisma.courseStat.create({
-      data: { courseId, label, value },
+      data: { courseId, icon, label, value },
     })
   }
-
-  update(id: bigint, value: string) {
+  update(id: bigint, value: string, icon?:string,label?: string) {
     return this.prisma.courseStat.update({
       where: { id },
-      data: { value },
+      data: { icon, label, value },
     })
   }
 

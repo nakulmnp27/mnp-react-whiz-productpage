@@ -1,63 +1,68 @@
 import { PrismaService } from '../prisma/prisma.service'
-import { Course , ExamInfo } from '@prisma/client'
+import { Course, ExamInfo } from '@prisma/client'
 import { Injectable } from '@nestjs/common'
 
 export interface ExamInfoRepository {
-  findByCourse(courseId: bigint): Promise<ExamInfo | null>
-  upsert(
-    courseId: bigint,
-    format: string,
-    duration: string,
-    cost: number,
-    language: string,
-  ): Promise<ExamInfo>
-  deleteByCourse(courseId: bigint): Promise<ExamInfo>
-  findCourseById(courseId: bigint):Promise<Course | null>
+  findByCourse(courseId: bigint): Promise<ExamInfo[]>
+  create( courseId: bigint, icon: string, heading: string,text: string,): Promise<ExamInfo>
+  update(id: bigint, icon: string, heading: string, text: string,): Promise<ExamInfo>
+  delete(id: bigint): Promise<ExamInfo>
+  findCourseById(courseId: bigint): Promise<Course | null>
 }
 
 @Injectable()
 export class PrismaExamInfoRepository implements ExamInfoRepository {
   constructor(private readonly prisma: PrismaService) {}
-
   findByCourse(courseId: bigint) {
-    return this.prisma.examInfo.findUnique({
+    return this.prisma.examInfo.findMany({
       where: { courseId },
     })
   }
-
-  upsert(
+  create(
     courseId: bigint,
-    format: string,
-    duration: string,
-    cost: number,
-    language: string,
+    icon: string,
+    heading: string,
+    text: string,
   ) {
-    return this.prisma.examInfo.upsert({
-      where: { courseId },
-      update: {
-        format,
-        duration,
-        cost,
-        language,
-      },
-      create: {
+    return this.prisma.examInfo.create({
+      data: {
         courseId,
-        format,
-        duration,
-        cost,
-        language,
+        icon,
+        heading,
+        text,
+      },
+    })
+  }
+  update(
+    id: bigint,
+    icon: string,
+    heading: string,
+    text: string,
+  ) {
+    return this.prisma.examInfo.update({
+      where: { id },
+      data: {
+        icon,
+        heading,
+        text,
       },
     })
   }
 
-  deleteByCourse(courseId: bigint) {
+  delete(id: bigint) {
     return this.prisma.examInfo.delete({
-      where: { courseId },
+      where: { id },
     })
   }
+
   findCourseById(courseId: bigint) {
-  return this.prisma.course.findUnique({
-    where: { id: courseId },
+    return this.prisma.course.findUnique({
+      where: { id: courseId },
+    })
+  }
+  findById(id: bigint) {
+  return this.prisma.examInfo.findUnique({
+    where: { id }
   })
 }
 }

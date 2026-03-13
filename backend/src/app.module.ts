@@ -12,6 +12,10 @@ import { EligibilityModule } from './eligibility/eligibility.module'
 import { ExamInfoModule } from './exam-info/exam-info.module'
 
 import { PrismaModule } from './prisma/prisma.module'
+import { CourseOverviewModule } from './courseOverview/courseOverview.module'
+import { CourseBenefitsModule } from './courseBenefits/course-benefit.module'
+import { ExamFeatureCardModule } from './examFeatureCard/exam-card.module'
+import { ExamDetailModule } from './examDetail/exam-detail.module'
 
 @Module({
   imports: [
@@ -31,6 +35,10 @@ import { PrismaModule } from './prisma/prisma.module'
     TestimonialsModule,
     EligibilityModule,
     ExamInfoModule,
+    CourseOverviewModule,
+    CourseBenefitsModule,
+    ExamFeatureCardModule,
+    ExamDetailModule
   ],
   controllers: [],
   providers: [],

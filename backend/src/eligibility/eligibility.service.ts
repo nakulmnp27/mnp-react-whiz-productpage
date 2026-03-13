@@ -11,7 +11,6 @@ export class EligibilityService {
     if (courseId <= 0) {
       throw new BadRequestException('invalid course id')
     }
-
     return this.repo.findByCourse(BigInt(courseId))
   }
 
@@ -19,7 +18,6 @@ export class EligibilityService {
     if (courseId <= 0) {
       throw new BadRequestException('invalid course id')
     }
-
     if (!dto.text?.trim()) {
       throw new BadRequestException('text is required')
     }
@@ -28,10 +26,10 @@ export class EligibilityService {
     if (!course) {
     throw new NotFoundException('course not found')
     }
-
     try {
-      return this.repo.create(BigInt(courseId), dto.text.trim())
-    } catch {
+      return this.repo.create(BigInt(courseId),dto.heading.trim(), dto.text.trim())
+    }
+    catch {
       throw new BadRequestException('eligibility already exists')
     }
   }
@@ -45,9 +43,10 @@ export class EligibilityService {
       throw new BadRequestException('text is required')
     }
 
-    try {
-      return this.repo.update(BigInt(eligibilityId), dto.text.trim())
-    } catch {
+  try {
+      return this.repo.update(BigInt(eligibilityId),dto.heading.trim(), dto.text.trim())
+    }
+    catch {
       throw new NotFoundException('eligibility not found')
     }
   }
@@ -59,7 +58,8 @@ export class EligibilityService {
 
     try {
       return this.repo.delete(BigInt(eligibilityId))
-    } catch {
+    }
+   catch {
       throw new NotFoundException('eligibility not found')
     }
   }

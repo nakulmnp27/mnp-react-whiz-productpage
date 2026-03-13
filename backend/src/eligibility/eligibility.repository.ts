@@ -5,8 +5,8 @@ import { Injectable } from '@nestjs/common'
 
 export interface EligibilityRepository {
   findByCourse(courseId: bigint): Promise<EligibilityPoint[]>
-  create(courseId: bigint, text: string): Promise<EligibilityPoint>
-  update(id: bigint, text: string): Promise<EligibilityPoint>
+  create(courseId: bigint, heading:string, text: string): Promise<EligibilityPoint>
+  update(id: bigint, heading:string, text: string): Promise<EligibilityPoint>
   delete(id: bigint): Promise<EligibilityPoint>
   findCourseById(courseId: bigint):Promise<Course | null>
 }
@@ -21,19 +21,17 @@ export class PrismaEligibilityRepository implements EligibilityRepository {
     })
   }
 
-  create(courseId: bigint, text: string) {
+  create(courseId: bigint,heading:string, text: string) {
     return this.prisma.eligibilityPoint.create({
-      data: { courseId, text },
+      data: { courseId, heading, text },
     })
   }
-
-  update(id: bigint, text: string) {
+  update(id: bigint,heading:string, text: string) {
     return this.prisma.eligibilityPoint.update({
       where: { id },
-      data: { text },
+      data: { heading, text },
     })
   }
-
   delete(id: bigint) {
     return this.prisma.eligibilityPoint.delete({
       where: { id },

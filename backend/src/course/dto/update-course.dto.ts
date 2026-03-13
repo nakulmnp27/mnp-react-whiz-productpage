@@ -19,6 +19,11 @@ export class UpdateCourseDto {
   rating?: number
 
   @ApiProperty({ required: false })
+  @IsString()
+  @IsOptional()
+  benefitsMessage?: string
+
+  @ApiProperty({ required: false })
   @IsNumber()
   @Min(0)
   @IsOptional()
