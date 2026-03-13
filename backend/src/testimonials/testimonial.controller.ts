@@ -1,13 +1,6 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Put,
-  Delete,
-  Param,
-  Body,
-  ParseIntPipe,
-  Patch,
+import { Controller, Get, Post,Delete,
+  Param, Body,
+  ParseIntPipe, Patch,
 } from '@nestjs/common'
 import { ApiTags } from '@nestjs/swagger'
 import { TestimonialsService } from './testimonial.service'
@@ -18,7 +11,6 @@ import { UpdateTestimonialDto } from './dto/update-testimonial.dto'
 @Controller()
 export class TestimonialsController {
   constructor(private readonly service: TestimonialsService) {}
-
   @Get('courses/:courseId/testimonials')
   getByCourse(@Param('courseId', ParseIntPipe) courseId: number) {
     return this.service.getByCourse(courseId)
@@ -31,7 +23,6 @@ export class TestimonialsController {
   ) {
     return this.service.create(courseId, dto)
   }
-
   @Patch('testimonials/:testimonialId')
   update(
     @Param('testimonialId', ParseIntPipe) testimonialId: number,

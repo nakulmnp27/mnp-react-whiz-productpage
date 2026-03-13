@@ -1,0 +1,12 @@
+.wraper-logo{
+    position:absolute;
+    background: #3f3f3f;
+    top:120px;
+    width: 100%;
+}
+
+@media (max-width: 768px){
+  .wraper-logo img {
+    max-width: 100%;
+  }
+}

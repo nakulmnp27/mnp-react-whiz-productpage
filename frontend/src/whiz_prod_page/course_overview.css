@@ -1,0 +1,34 @@
+.overview_box_left{
+  font-size: 50px;
+  font-weight: 200;
+}
+.features-heading{
+      background: linear-gradient(
+    to right, #c828047d, #e5aa9c2d
+  );;
+  margin: none;
+}
+
+.features-list {
+    background: #c828043a;
+
+}
+
+.learning-heading{
+    background: linear-gradient(
+    to right, #ffb862eb, #e5aa9c2d
+  );;
+}
+.learning-list{
+    background: #ffb86269;
+}
+
+
+.overview-logo{
+  position: absolute;
+}
+
+.overview-logo img{
+  width: 400px;  
+  height: 200px;
+}

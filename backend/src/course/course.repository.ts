@@ -53,6 +53,11 @@ async findFullById(courseId: bigint) {
       testimonials: true,
       examInfo: true,
       eligibility: true,
+      courseOverview:true,
+      courseBenefits:true,
+      examDetails:true,
+      examFeatureCards:true,
+
     },
   });
 }

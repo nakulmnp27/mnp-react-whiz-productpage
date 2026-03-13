@@ -4,18 +4,10 @@ import { Injectable } from '@nestjs/common'
 
 export interface TestimonialsRepository {
   findByCourse(courseId: bigint): Promise<Testimonial[]>
-  create(
-    courseId: bigint,
-    name: string,
-    role: string,
-    message: string,
-    rating: number,
+  create( courseId: bigint, name: string, role: string,
+    message: string, rating: number, profile:string,
   ): Promise<Testimonial>
-  update(
-    id: bigint,
-    message: string,
-    rating: number,
-  ): Promise<Testimonial>
+  update( id: bigint, message?: string, rating?: number, profile?: string,): Promise<Testimonial>
   delete(id: bigint): Promise<Testimonial>
   findCourseById(courseId: bigint):Promise<Course | null>
 }
@@ -23,7 +15,6 @@ export interface TestimonialsRepository {
 @Injectable()
 export class PrismaTestimonialsRepository implements TestimonialsRepository {
   constructor(private readonly prisma: PrismaService) {}
-
   findByCourse(courseId: bigint) {
     return this.prisma.testimonial.findMany({
       where: { courseId },
@@ -36,6 +27,7 @@ export class PrismaTestimonialsRepository implements TestimonialsRepository {
     role: string,
     message: string,
     rating: number,
+    profile:string,
   ) {
     return this.prisma.testimonial.create({
       data: {
@@ -44,14 +36,15 @@ export class PrismaTestimonialsRepository implements TestimonialsRepository {
         role,
         message,
         rating,
+        profile,
       },
     })
   }
 
-  update(id: bigint, message: string, rating: number) {
+  update(id: bigint, message?: string, rating?: number, profile?: string) {
     return this.prisma.testimonial.update({
       where: { id },
-      data: { message, rating },
+      data: { message, rating, profile },
     })
   }
 

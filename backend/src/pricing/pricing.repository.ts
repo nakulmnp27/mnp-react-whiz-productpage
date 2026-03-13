@@ -1,56 +1,52 @@
 import { Injectable } from '@nestjs/common'
 import { PrismaService } from '../prisma/prisma.service'
 import { Course, Pricing } from '@prisma/client'
+import { CreatePricingDto, UpdatePricingDto } from './dto/pricing.dto'
 
 export interface PricingRepository {
-  create(
-    courseId: bigint,
-    data: Omit<Pricing, 'id' | 'courseId' | 'createdAt' | 'updatedAt'>
-  ): Promise<Pricing>
+  create(courseId: bigint, data: CreatePricingDto): Promise<Pricing>
+  findByCourseId(courseId: bigint): Promise<Pricing[]>
 
-  findByCourseId(courseId: bigint): Promise<Pricing | null>
-
-  updateByCourseId(
-    courseId: bigint,
-    data: Partial<Omit<Pricing, 'id' | 'courseId' | 'createdAt' | 'updatedAt'>>
-  ): Promise<Pricing>
-    findCourseById(courseId: bigint):Promise<Course | null>
+  update(id: bigint, data: UpdatePricingDto): Promise<Pricing>
+  findCourseById(courseId: bigint): Promise<Course | null>
 }
 
 @Injectable()
 export class PrismaPricingRepository implements PricingRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  create(
-  courseId: bigint,
-  data: Omit<Pricing, 'id' | 'courseId' | 'createdAt' | 'updatedAt'>
-  ): Promise<Pricing> {
-  return this.prisma.pricing.create({
+  create(courseId: bigint, data: CreatePricingDto): Promise<Pricing> {
+    return this.prisma.pricing.create({
       data: {
-        ...data,
+        title: data.title,
+        sellingPrice: data.sellingPrice,
+        offerPrice: data.offerPrice,
+        isticked: data.isticked,
         courseId: Number(courseId),
       },
     })
   }
 
-findByCourseId(courseId: bigint): Promise<Pricing | null> {
-  return this.prisma.pricing.findUnique({
+  findByCourseId(courseId: bigint): Promise<Pricing[]> {
+    return this.prisma.pricing.findMany({
       where: { courseId: Number(courseId) },
     })
   }
 
-  updateByCourseId(
-    courseId: bigint,
-    data: Partial<Omit<Pricing, 'id' | 'courseId' | 'createdAt' | 'updatedAt'>>
-  ): Promise<Pricing> {
+  update(id: bigint, data: UpdatePricingDto): Promise<Pricing> {
     return this.prisma.pricing.update({
-      where: { courseId: Number(courseId) },
-      data,
+      where: { id: Number(id) },
+      data: {
+        title: data.title,
+        sellingPrice: data.sellingPrice,
+        offerPrice: data.offerPrice,
+        isticked: data.isticked,
+      },
     })
   }
-  findCourseById(courseId: bigint) {
-  return this.prisma.course.findUnique({
-    where: { id: courseId },
-  })
-}
+  findCourseById(courseId: bigint): Promise<Course | null> {
+    return this.prisma.course.findUnique({
+      where: { id: Number(courseId) },
+    })
+  }
 }

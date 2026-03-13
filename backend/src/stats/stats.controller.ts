@@ -1,13 +1,7 @@
 import {
-  Controller,
-  Get,
-  Post,
-  Put,
-  Delete,
-  Param,
-  Body,
-  ParseIntPipe,
-} from '@nestjs/common'
+  Controller, Get, Post,
+  Put, Delete, Param, Body,
+  ParseIntPipe,} from '@nestjs/common'
 import { ApiTags } from '@nestjs/swagger'
 import { StatsService } from './stats.service'
 import { CreateStatDto } from './dto/create-stat.dto'
@@ -17,7 +11,6 @@ import { UpdateStatDto } from './dto/update-stat.dto'
 @Controller()
 export class StatsController {
   constructor(private readonly service: StatsService) {}
-
   @Get('courses/:courseId/stats')
   getByCourse(@Param('courseId', ParseIntPipe) courseId: number) {
     return this.service.getByCourse(courseId)
@@ -38,7 +31,6 @@ export class StatsController {
   ) {
     return this.service.update(statId, dto)
   }
-
   @Delete('stats/:statId')
   remove(@Param('statId', ParseIntPipe) statId: number) {
     return this.service.remove(statId)

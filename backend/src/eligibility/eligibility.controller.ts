@@ -1,13 +1,6 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Put,
-  Delete,
-  Param,
-  Body,
-  ParseIntPipe,
-} from '@nestjs/common'
+import {Controller, Get, Post,
+  Put, Delete, Param,
+  Body,ParseIntPipe, } from '@nestjs/common'
 import { ApiTags } from '@nestjs/swagger'
 import { EligibilityService } from './eligibility.service'
 import { CreateEligibilityDto } from './dto/create-eligibility.dto'

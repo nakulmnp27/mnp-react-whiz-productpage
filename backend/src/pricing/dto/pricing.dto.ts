@@ -1,18 +1,26 @@
+
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger'
-import { IsNumber, IsOptional, IsPositive } from 'class-validator'
+import { IsBoolean, IsNumber, IsOptional, IsPositive, IsString } from 'class-validator'
 
 export class CreatePricingDto {
+
+  @ApiProperty({ example: "full bundle" })
+  @IsString()
+  title: string
+  
   @ApiProperty({
     example: 999.99,
-    description: 'Original selling price of the course',
   })
   @IsNumber({ maxDecimalPlaces: 2 })
   @IsPositive()
   sellingPrice: number
 
+  @ApiProperty({ example: false })
+  @IsBoolean()
+  isticked: boolean
+
   @ApiProperty({
     example: 499.99,
-    description: 'Offer price shown to users',
   })
   @IsNumber({ maxDecimalPlaces: 2 })
   @IsPositive()
@@ -20,6 +28,12 @@ export class CreatePricingDto {
 }
 
 export class UpdatePricingDto {
+
+  @ApiPropertyOptional({ example: "full bundle" })
+  @IsOptional()
+  @IsString()
+  title?: string
+
   @ApiPropertyOptional({ example: 1099.99 })
   @IsOptional()
   @IsNumber({ maxDecimalPlaces: 2 })
@@ -31,4 +45,9 @@ export class UpdatePricingDto {
   @IsNumber({ maxDecimalPlaces: 2 })
   @IsPositive()
   offerPrice?: number
+
+  @ApiPropertyOptional({ example: false })
+  @IsOptional()
+  @IsBoolean()
+  isticked?: boolean
 }

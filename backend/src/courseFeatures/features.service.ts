@@ -11,7 +11,6 @@ export class FeaturesService {
     if (courseId <= 0) {
       throw new BadRequestException('invalid course id')
     }
-
     return this.repo.findByCourse(BigInt(courseId))
   }
 
@@ -19,19 +18,28 @@ export class FeaturesService {
     if (courseId <= 0) {
       throw new BadRequestException('invalid course id')
     }
-
-    if (!dto.text?.trim()) {
-      throw new BadRequestException('text is required')
+    if (!dto.title?.trim()) {
+      throw new BadRequestException('title is required')
     }
-
-  const course = await this.repo.findCourseById(BigInt(courseId))
-  if (!course) {
-    throw new NotFoundException('course not found')
-  }
-
+    if (!dto.description?.trim()) {
+      throw new BadRequestException('description is required')
+    }
+    if (!dto.icon?.trim()) {
+      throw new BadRequestException('icon is required')
+    }
+    const course = await this.repo.findCourseById(BigInt(courseId))
+    if (!course) {
+      throw new NotFoundException('course not found')
+    }
     try {
-      return this.repo.create(BigInt(courseId), dto.text.trim())
-    } catch {
+      return this.repo.create(
+        BigInt(courseId),
+        dto.icon.trim(),
+        dto.title.trim(),
+        dto.description.trim()
+      )
+    }
+    catch {
       throw new BadRequestException('feature already exists')
     }
   }
@@ -41,13 +49,15 @@ export class FeaturesService {
       throw new BadRequestException('invalid feature id')
     }
 
-    if (!dto.text?.trim()) {
-      throw new BadRequestException('text is required')
-    }
-
     try {
-      return this.repo.update(BigInt(featureId), dto.text.trim())
-    } catch {
+      return this.repo.update(
+        BigInt(featureId),
+        dto.icon?.trim(),
+        dto.title?.trim(),
+        dto.description?.trim()
+      )
+    }
+    catch {
       throw new NotFoundException('feature not found')
     }
   }
@@ -56,10 +66,10 @@ export class FeaturesService {
     if (featureId <= 0) {
       throw new BadRequestException('invalid feature id')
     }
-
     try {
       return this.repo.delete(BigInt(featureId))
-    } catch {
+    }
+    catch {
       throw new NotFoundException('feature not found')
     }
   }

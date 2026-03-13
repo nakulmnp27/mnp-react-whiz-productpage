@@ -13,7 +13,6 @@ export interface FaqsRepository {
 @Injectable()
 export class PrismaFaqsRepository implements FaqsRepository {
   constructor(private readonly prisma: PrismaService) {}
-
   findByCourse(courseId: bigint) {
     return this.prisma.faq.findMany({
       where: { courseId },
@@ -29,14 +28,12 @@ export class PrismaFaqsRepository implements FaqsRepository {
       },
     })
   }
-
   update(id: bigint, answer: string) {
     return this.prisma.faq.update({
       where: { id },
       data: { answer },
     })
   }
-
   delete(id: bigint) {
     return this.prisma.faq.delete({
       where: { id },

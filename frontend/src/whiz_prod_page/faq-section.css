@@ -1,0 +1,38 @@
+
+.faq{
+  background: var(--bg-white);
+  margin-top: 100px;
+}
+
+.faq h2{
+  font-size: 40px;
+}
+
+.faq-card {
+  border-color: #d5d3d3 !important;
+  background: #f5f4ef;
+}
+
+.faq-search-icon{
+  width: 40px;
+  height: 40px;
+}
+
+.faq-arrow{
+  width: 30px;
+  height: 30px;
+}
+
+.faq-question{
+  font-size: 16px;
+}
+
+
+.see-more-btn {
+  padding: 13px 50px;
+  border: 1px solid black;
+  background: white;
+  border-radius: 50px;
+  font-size: 14px;
+  font-weight: 700;
+}

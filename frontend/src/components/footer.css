@@ -1,0 +1,233 @@
+.footer1-section {
+  position: relative;
+}
+
+.team-img img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.footer1-overlay {
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  position: absolute;
+  background: linear-gradient(
+    90deg,
+    #f55b43 ,
+    #fff6c3 50%,
+    #fff6c300
+  );
+}
+
+.footer1-title {
+  font-size: 30px;
+  font-weight: 400;
+  line-height: 1.5;
+
+  color: white;
+}
+
+.footer1-highlight {
+  background: #ffe77a;
+  color: #000;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-weight: 600;
+}
+
+.footer1-btn {
+  background: #000;
+  color: white;
+  border: none;
+  padding: 16px 36px;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 16px;
+  width: auto;
+}
+.footer-logo{
+  position: absolute;
+  z-index: 100;
+}
+
+/* .footer-logo img{
+  width: 700px;
+  height :400px
+} */
+
+
+
+.footer-one{
+  position: relative;
+  z-index: 100;
+}
+
+@media (max-width: 768px) {
+  .footer-one {
+    width: 100%;
+  }
+}
+
+.footer1-section {
+  overflow: hidden; 
+}
+
+.footer {
+
+  /* padding: 50px 0 0; */
+  margin:50px 200px 10px 200px
+}
+
+.footer-grid {
+  row-gap: 60px;
+}
+
+.footer-col-1 {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.footer-col-1 img {
+  max-width: 200px;
+}
+
+.footer-lines {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.footer-lines .line {
+  height: 3px;
+  border-radius: 3px;
+}
+
+.footer-lines .short {
+  width: 18px;
+  background: #ff6b3d;
+}
+
+.footer-lines .long {
+  width: 50px;
+  background: #ccc;
+}
+
+.footer-list {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-list li {
+  margin-bottom: 10px;
+}
+
+.footer-list a {
+  text-decoration: none;
+  color: #666;
+}
+
+.footer-list a:hover {
+  color: #ff6b3d;
+}
+
+.card-temp {
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+}
+
+.contactus {
+  background: #fff4e8;
+  padding: 12px 30px;
+  border-radius: 30px;
+  color: #ff6b3d;
+  display: inline-block;
+}
+
+.cus-support {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+  /* min-width: 20px; */
+}
+
+.external-links {
+  margin-top: 20px;
+  display: flex;
+  gap: 20px;
+}
+
+.external-links img {
+  width: 40px;
+}
+
+.career-banner {
+  margin: 40px auto;
+  max-width: 1200px;
+  background: #2c7c2c;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  font-size: 22px;
+  font-weight: 600;
+  border-radius: 10px;
+}
+
+.copyright {
+  text-align: center;
+  padding: 40px;
+  color: #777;
+}
+
+.footer-grid {
+  row-gap: 40px;
+}
+
+@media (max-width: 768px) {
+
+  .footer {
+    margin:40px 10px;
+    padding:0 10px;
+  }
+
+}
+
+.cus-support {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.cus-support img {
+  width: 40px;
+  height: 40px;
+}
+
+.external-links {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  margin-top: 15px;
+}
+
+.external-links a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.external-links img {
+  max-width: 32px;
+  height: auto;
+}
+
+
+
+
+
+
+

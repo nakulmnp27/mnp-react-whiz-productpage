@@ -42,8 +42,9 @@ export class CourseController {
     return this.service.remove(id) }
 
 
-  @Get(':id/full')
-getFullCourse(@Param('id') id: string) {
-  return this.service.getFullCourse(BigInt(id));
+@Get(':id/full')
+@ApiOperation({ summary: 'Get full course details' })
+getFullCourse(@Param('id', ParseIntPipe) id: number) {
+  return this.service.getFullCourse(BigInt(id))
 }
 }

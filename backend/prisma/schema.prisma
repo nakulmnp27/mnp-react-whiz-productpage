@@ -10,7 +10,9 @@ datasource db {
 model Course {
   id          BigInt   @id @default(autoincrement())
   title       String   @db.VarChar(255)
-  description String   @db.VarChar(2000)
+  description String   @db.VarChar
+  benefitsMessage     String @db.VarChar(500)
+  
 
   rating      Float?
   learners    BigInt?
@@ -18,30 +20,38 @@ model Course {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  pricing      Pricing?
+  examDetails CourseExamDetail[]
+  pricing      Pricing[]
   features     CourseFeature[]
   stats        CourseStat[]
   faqs         Faq[]
   testimonials Testimonial[]
-  examInfo     ExamInfo?
+  examInfo     ExamInfo[]
   eligibility  EligibilityPoint[]
+  courseOverview  CourseOverview[]
+  courseBenefits   CourseBenefit[]
+  examFeatureCards ExamFeatureCard[]
 }
 
 model Pricing {
   id           BigInt @id @default(autoincrement())
+  title        String @db.VarChar(100)
   sellingPrice Float
   offerPrice    Float
+  isticked     Boolean @default(false)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  courseId BigInt @unique
+  courseId BigInt 
   course   Course @relation(fields: [courseId], references: [id])
 }
 
 model CourseFeature {
   id   BigInt @id @default(autoincrement())
-  text String @db.VarChar(500)
+  icon  String @db.VarChar(500)
+  title String @db.VarChar(500)
+  description   String   @db.VarChar(200)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -49,11 +59,12 @@ model CourseFeature {
   courseId BigInt
   course   Course @relation(fields: [courseId], references: [id])
 
-  @@unique([courseId, text])
+  @@unique([courseId, title])
 }
 
 model CourseStat {
   id    BigInt @id @default(autoincrement())
+  icon   String  @db.VarChar(255)
   label String @db.VarChar(100)
   value String @db.VarChar(100)
 
@@ -84,6 +95,7 @@ model Testimonial {
   role    String? @db.VarChar(150)
   message String @db.VarChar(1000)
   rating  Float
+  profile  String @db.VarChar(30)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -94,20 +106,21 @@ model Testimonial {
 
 model ExamInfo {
   id       BigInt @id @default(autoincrement())
-  format   String @db.VarChar(100)
-  duration String @db.VarChar(100)
-  cost     Float
-  language String @db.VarChar(100)
+  icon  String @db.VarChar(100)
+  heading String @db.VarChar(100)
+  text String @db.VarChar(100)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  courseId BigInt @unique
+  courseId BigInt 
   course   Course @relation(fields: [courseId], references: [id])
+   @@unique([courseId, heading])
 }
 
 model EligibilityPoint {
   id   BigInt @id @default(autoincrement())
+  heading  String  @db.VarChar(50)
   text String @db.VarChar(500)
 
   createdAt DateTime @default(now())
@@ -118,3 +131,64 @@ model EligibilityPoint {
 
   @@unique([courseId, text])
 }
+
+model CourseOverview {
+  id        BigInt @id @default(autoincrement())
+  text      String @db.VarChar(500)
+
+  column    Int
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  courseId  BigInt
+  course    Course @relation(fields: [courseId], references: [id])
+
+  @@unique([courseId, text])
+}
+
+model CourseBenefit {
+  id          BigInt @id @default(autoincrement())
+
+  title       String @db.VarChar(50)
+  description String @db.VarChar(200)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  courseId BigInt
+  course   Course @relation(fields: [courseId], references: [id])
+
+  @@unique([courseId, title])
+}
+
+model CourseExamDetail {
+  id          BigInt   @id @default(autoincrement())
+
+  heading     String   @db.VarChar(100)
+  description String   @db.VarChar(1000)
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  courseId    BigInt
+  course      Course   @relation(fields: [courseId], references: [id])
+
+  @@unique([courseId, heading])
+}
+
+model ExamFeatureCard {
+  id   BigInt @id @default(autoincrement())
+
+  icon String @db.VarChar(500)
+  text String @db.VarChar(300)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  courseId BigInt
+  course   Course @relation(fields: [courseId], references: [id])
+
+  @@unique([courseId, text])
+}
+

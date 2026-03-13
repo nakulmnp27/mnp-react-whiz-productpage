@@ -1,15 +1,11 @@
-import {
-  Controller,
-  Get,
-  Put,
-  Delete,
-  Param,
-  Body,
-  ParseIntPipe,
-} from '@nestjs/common'
+import {Controller, Get,
+  Put, Post,
+  Delete, Param, Body,
+  ParseIntPipe, } from '@nestjs/common'
 import { ApiTags } from '@nestjs/swagger'
 import { ExamInfoService } from './exam-info.service'
-import { UpsertExamInfoDto } from './dto/upsert-exam-info.dto'
+import { CreateExamInfoDto } from './dto/create-exam-info.dto'
+import { UpdateExamInfoDto } from './dto/update-exam.dto'
 
 @ApiTags('Course Exam Info')
 @Controller()
@@ -21,12 +17,20 @@ export class ExamInfoController {
     return this.service.get(courseId)
   }
 
-  @Put('courses/:courseId/exam-info')
-  upsert(
+  @Post('courses/:courseId/exam-info')
+  create(
     @Param('courseId', ParseIntPipe) courseId: number,
-    @Body() dto: UpsertExamInfoDto,
+    @Body() dto: CreateExamInfoDto,
   ) {
-    return this.service.upsert(courseId, dto)
+    return this.service.create(courseId, dto)
+  }
+
+    @Put('courses/:courseId/exam-info')
+  update(
+    @Param('courseId', ParseIntPipe) courseId: number,
+    @Body() dto: UpdateExamInfoDto,
+  ) {
+    return this.service.update(courseId, dto)
   }
 
   @Delete('courses/:courseId/exam-info')

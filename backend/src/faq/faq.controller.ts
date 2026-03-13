@@ -1,13 +1,7 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Put,
+import { Controller,
+  Get, Post, Put,
   Delete,
-  Param,
-  Body,
-  ParseIntPipe,
-} from '@nestjs/common'
+  Param, Body, ParseIntPipe,} from '@nestjs/common'
 import { ApiTags } from '@nestjs/swagger'
 import { FaqsService } from './faq.service'
 import { CreateFaqDto } from './dto/create-faq.dto'
@@ -17,7 +11,6 @@ import { UpdateFaqDto } from './dto/update-faq.dto'
 @Controller()
 export class FaqsController {
   constructor(private readonly service: FaqsService) {}
-
   @Get('courses/:courseId/faqs')
   getByCourse(@Param('courseId', ParseIntPipe) courseId: number) {
     return this.service.getByCourse(courseId)
@@ -30,7 +23,6 @@ export class FaqsController {
   ) {
     return this.service.create(courseId, dto)
   }
-
   @Put('faqs/:faqId')
   update(
     @Param('faqId', ParseIntPipe) faqId: number,

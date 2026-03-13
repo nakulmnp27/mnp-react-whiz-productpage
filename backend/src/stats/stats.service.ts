@@ -11,7 +11,6 @@ export class StatsService {
     if (courseId <= 0) {
       throw new BadRequestException('invalid course id')
     }
-
     return this.repo.findByCourse(BigInt(courseId))
   }
 
@@ -19,14 +18,13 @@ export class StatsService {
     if (courseId <= 0) {
       throw new BadRequestException('invalid course id')
     }
-
     const course = await this.repo.findCourseById(BigInt(courseId))
     if (!course) {
     throw new NotFoundException('course not found')
     }
-
     return this.repo.create(
       BigInt(courseId),
+      dto.icon.trim(),
       dto.label.trim(),
       dto.value.trim(),
     )
@@ -40,10 +38,18 @@ export class StatsService {
     if (!dto.value?.trim()) {
       throw new BadRequestException('value is required')
     }
+    if (!dto.icon?.trim()) {
+  throw new BadRequestException('icon is required')
+  }
 
     try {
-      return this.repo.update(BigInt(statId), dto.value.trim())
-    } catch {
+      return this.repo.update(
+        BigInt(statId),
+        dto.icon?.trim(),
+        dto.label?.trim(),
+        dto.value?.trim(),)
+    }
+    catch {
       throw new NotFoundException('stat not found')
     }
   }
