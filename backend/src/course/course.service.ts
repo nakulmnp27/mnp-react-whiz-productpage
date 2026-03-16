@@ -1,19 +1,24 @@
-import { Injectable, NotFoundException } from '@nestjs/common'
+import { ConflictException, Injectable, NotFoundException } from '@nestjs/common'
 import { PrismaCourseRepository } from './course.repository'
 import { CreateCourseDto } from './dto/create-course.dto'
 import { UpdateCourseDto } from './dto/update-course.dto'
 @Injectable()
 export class CourseService {
   constructor(private readonly repo: PrismaCourseRepository) {}
+async create(dto: CreateCourseDto) {
+    const existing = await this.repo.findByTitle(dto.title)
 
-  create(dto: CreateCourseDto) {
+  if (existing) {
+    throw new ConflictException('Course already exists')
+  }
     return this.repo.create({
       ...dto,
       learners: BigInt(dto.learners),
+      isDeleted: false
     })
   }
 
-  findAll() {
+ findAll() {
     return this.repo.findAll()
   }
 
@@ -25,13 +30,16 @@ const course = await this.repo.findById(id)
     return course
   }
 
-  update(id: number, dto: UpdateCourseDto) {
-    return this.repo.update(id, {
-      ...dto,
-      learners:
-    dto.learners !== undefined? BigInt(dto.learners) : undefined,
-    })
+  async update(id: number, dto: UpdateCourseDto) {
+    const data: any = { ...dto }
+
+  if (dto.learners !== undefined) {
+      data.learners = BigInt(dto.learners)
+    }
+
+return this.repo.update(id, data)
   }
+
 
   remove(id: number) {
     return this.repo.delete(id)

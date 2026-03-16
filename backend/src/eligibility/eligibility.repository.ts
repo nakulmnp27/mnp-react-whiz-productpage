@@ -26,7 +26,7 @@ export class PrismaEligibilityRepository implements EligibilityRepository {
       data: { courseId, heading, text },
     })
   }
-  update(id: bigint,heading:string, text: string) {
+update(id: bigint,heading:string, text: string) {
     return this.prisma.eligibilityPoint.update({
       where: { id },
       data: { heading, text },

@@ -7,6 +7,12 @@ import { ExamFeatureCardService } from './exam-card.service'
 import { CreateExamFeatureCardDto } from './dto/create-exam-card.dto'
 import { UpdateExamFeatureCardDto } from './dto/update-exam-card.dto'
 
+import { UseGuards } from '@nestjs/common'
+import { JwtAuthGuard } from '../auth/jwt.guard'
+import { ApiBearerAuth } from '@nestjs/swagger'
+
+@ApiBearerAuth('access-token')
+@UseGuards(JwtAuthGuard)
 @ApiTags('Exam Feature Cards')
 @Controller('courses/:courseId/exam-feature-cards')
 export class ExamFeatureCardController {

@@ -7,7 +7,13 @@ import { FaqsService } from './faq.service'
 import { CreateFaqDto } from './dto/create-faq.dto'
 import { UpdateFaqDto } from './dto/update-faq.dto'
 
-@ApiTags('Course FAQs')
+import { UseGuards } from '@nestjs/common'
+import { JwtAuthGuard } from '../auth/jwt.guard'
+import { ApiBearerAuth } from '@nestjs/swagger'
+
+@ApiBearerAuth('access-token')
+@UseGuards(JwtAuthGuard)
+@ApiTags('FAQs')
 @Controller()
 export class FaqsController {
   constructor(private readonly service: FaqsService) {}

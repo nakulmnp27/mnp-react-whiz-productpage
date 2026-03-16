@@ -7,6 +7,12 @@ import { StatsService } from './stats.service'
 import { CreateStatDto } from './dto/create-stat.dto'
 import { UpdateStatDto } from './dto/update-stat.dto'
 
+import { UseGuards } from '@nestjs/common'
+import { JwtAuthGuard } from '../auth/jwt.guard'
+import { ApiBearerAuth } from '@nestjs/swagger'
+
+@ApiBearerAuth('access-token')
+@UseGuards(JwtAuthGuard)
 @ApiTags('Course Stats')
 @Controller()
 export class StatsController {

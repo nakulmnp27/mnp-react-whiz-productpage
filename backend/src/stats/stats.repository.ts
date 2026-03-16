@@ -14,7 +14,7 @@ export class PrismaStatsRepository implements StatsRepository {
   constructor(private readonly prisma: PrismaService) {}
   findByCourse(courseId: bigint) {
     return this.prisma.courseStat.findMany({
-      where: { courseId },
+      where: { courseId, isDeleted:false },
     })
   }
 
@@ -25,20 +25,21 @@ export class PrismaStatsRepository implements StatsRepository {
   }
   update(id: bigint, value: string, icon?:string,label?: string) {
     return this.prisma.courseStat.update({
-      where: { id },
+      where: { id, isDeleted:false },
       data: { icon, label, value },
     })
   }
 
   delete(id: bigint) {
-    return this.prisma.courseStat.delete({
+    return this.prisma.courseStat.update({
       where: { id },
+      data : { isDeleted:true}
     })
   }
 
   findCourseById(courseId: bigint) {
-  return this.prisma.course.findUnique({
-    where: { id: courseId },
+  return this.prisma.course.findFirst({
+    where: { id: courseId, isDeleted:false },
   })
 }
 }

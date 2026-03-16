@@ -16,6 +16,7 @@ import { CourseOverviewModule } from './courseOverview/courseOverview.module'
 import { CourseBenefitsModule } from './courseBenefits/course-benefit.module'
 import { ExamFeatureCardModule } from './examFeatureCard/exam-card.module'
 import { ExamDetailModule } from './examDetail/exam-detail.module'
+import { AuthModule } from './auth/auth.module'
 
 @Module({
   imports: [
@@ -38,7 +39,8 @@ import { ExamDetailModule } from './examDetail/exam-detail.module'
     CourseOverviewModule,
     CourseBenefitsModule,
     ExamFeatureCardModule,
-    ExamDetailModule
+    ExamDetailModule,
+    AuthModule
   ],
   controllers: [],
   providers: [],

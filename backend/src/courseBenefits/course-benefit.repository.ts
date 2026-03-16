@@ -23,22 +23,21 @@ export class PrismaBenefitsRepository implements BenefitsRepository {
   constructor(private readonly prisma: PrismaService) {}
   findByCourse(courseId: bigint) {
     return this.prisma.courseBenefit.findMany({
-      where: { courseId }
+      where: { courseId,isDeleted:false }
     })
   }
 
   create(courseId: bigint, title: string, description: string) {
     return this.prisma.courseBenefit.create({
       data: {
-        courseId,
-        title,
+        courseId, title,
         description
       }
     })
   }
   update(id: bigint, title?: string, description?: string) {
     return this.prisma.courseBenefit.update({
-      where: { id },
+      where: { id , isDeleted:false},
       data: {
         title,
         description
@@ -46,14 +45,18 @@ export class PrismaBenefitsRepository implements BenefitsRepository {
     })
   }
 
-  delete(id: bigint) {
-    return this.prisma.courseBenefit.delete({
-      where: { id }
+delete(id: bigint) {
+    return this.prisma.courseBenefit.update({
+      where: { id },
+      data: {
+        isDeleted: true
+      }
     })
   }
-  findCourseById(courseId: bigint) {
-    return this.prisma.course.findUnique({
-      where: { id: courseId }
+
+  findCourseById(courseId: bigint){
+    return this.prisma.course.findFirst({
+    where: { id: courseId, isDeleted: false }
     })
   }
 }

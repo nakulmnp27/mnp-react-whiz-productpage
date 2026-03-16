@@ -24,25 +24,28 @@ export class ExamDetailService {
     )
   }
 
-  update(id: number, dto: UpdateExamDetailDto) {
+async update(id: number, dto: UpdateExamDetailDto) {
 
-    if (id <= 0) {
-      throw new BadRequestException('invalid id')
-    }
-    try {
-      return this.repo.update(
-        BigInt(id),
-        dto.heading!.trim(),
-        dto.description!.trim()
-      )
-    }
-    catch {
-      throw new NotFoundException('exam detail not found')
-    }
+  if (id <= 0) {
+    throw new BadRequestException('invalid id')
   }
 
-  remove(id: number) {
+  try {
+    const existing = await this.repo.findById(BigInt(id))
+    if (!existing) {
+      throw new NotFoundException('exam detail not found')
+    }
+    return await this.repo.update(
+      BigInt(id),
+      dto.heading?.trim() ?? existing.heading,
+      dto.description?.trim() ?? existing.description
+    )
+  } catch {
+    throw new NotFoundException('exam detail not found')
+  }
+}
 
+  remove(id: number) {
     try {
       return this.repo.delete(BigInt(id))
     }

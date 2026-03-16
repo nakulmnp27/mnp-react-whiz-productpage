@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import "./HeroSection.css";
 
 type Stat = {
+  icon: string;
   id: string;
   label: string;
   value: string;
@@ -65,14 +66,14 @@ const HeroSection = ({
             )}
 
             <div className="icon-text text-muted d-flex align-items-center">
-              <img src="/calender.png" width="14" className="icon calendar-icon"/>
+              <img src="/essentials/calender.png" width="14" className="icon calendar-icon"/>
               LAST UPDATED ON {dateVal}
             </div>
           </div>
 
           {learners && (
             <div className="info d-flex align-items-center mb-4">
-              <img src="/graduation_hat.png" width="40" className="hat-icon"/>
+              <img src="/essentials/graduation_hat.png" width="40" className="hat-icon"/>
               <span className="learners"> {Number(learners).toLocaleString()} Learners </span>
             </div>
           )}
@@ -93,8 +94,14 @@ const HeroSection = ({
             {stats?.map((stat) => (
               <div key={stat.id} className="col-md-6 mb-3">
 
-                <div className="grid-box d-flex">
-                  <img src="/practise_test.png" width="100" className="test-icon"/>
+                <div className="grid-box d-flex gap-3 ">
+                  {/* <div className="justify-content-center gap-4">
+                  <img src={stat.icon ?? "/default.png"} className="p-2 box-icon " width={50} height={50} alt="" />
+                  </div> */}
+
+                    <div className="d-flex align-items-center p-2">
+                      <img src={stat.icon ?? "/default.png"} className="p-2 box-icon"  width={50} height={50} alt="" />
+                    </div>
                   <div className="grid-text align-content-center">
                     <div className="grid-text1">
                       {stat.label}
@@ -133,10 +140,12 @@ const HeroSection = ({
         <div className="col-lg-4">
           <div className=" rounded-4 border border-warning shadow-sm bg-light d-flex flex-column">
             <p className="p-0 rounded-top-4 pricing-heading text-center mb-2"> This Course is included in these plans </p>
+
             <div className="pricing-color ps-2 pb-2">
-            <img src="/video-dup.png" alt="intro video" className="img-fluid rounded-3 mb-3" />
+            <img src="/essentials/video-dup.png" alt="intro video" className="img-fluid rounded-3 mb-3" />
             <h3 className="text-center fw-semibold"> Get Whizlabs Subscription </h3>
             <p className="text-center text-muted small mb-3"> Access 250+ cloud courses with Practice tests + Hands-on Labs, Sandboxes and more!!</p>
+            
             <button className="side-btn-1 btn rounded-pill"> Start Subscription </button>
             <p className="d-flex justify-content-center align-items-baseline gap-2 mb-3">
               Start at <b>${Math.min(...pricing.map(p => p.offerPrice))}</b>

@@ -52,7 +52,7 @@ export default function ExamFeatureSection({
           <p className="info-description">
             {benefitsMessage}
           </p>
-          <div className="features-logo"><img src="/section-logo.png" alt="" /></div>
+          <div className="features-logo"><img src="/essentials/section-logo.png" alt="" /></div>
         </div>
 
       </div>

@@ -47,6 +47,17 @@
   padding: 15px;
   border-radius: 6px;
 }
+
+.box-icon{
+  border-radius: 0px 100px 100px 100px;
+  /* min-width: 80px;
+  min-height: 80px; */
+  background: #fde8d6;
+}
+.box-icon img {
+  max-width: 80px;
+  max-height: 80px;
+}
 .test-icon{
   margin-right: 10px;
 }

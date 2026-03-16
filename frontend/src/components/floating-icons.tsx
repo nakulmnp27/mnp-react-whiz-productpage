@@ -15,7 +15,7 @@ export default function Floating(): JSX.Element {
       <a href="#top" className="go-top">↑</a>
 
       <a href="#" className="whatsapp">
-        <img src="assets/whatsapp.png" alt="WhatsApp" />
+        <img src="/essentials/whatsapp.png" alt="WhatsApp" />
       </a>
 
     </div>

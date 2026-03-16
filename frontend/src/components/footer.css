@@ -152,6 +152,9 @@
   display: flex;
   gap: 10px;
   margin-top: 15px;
+  align-items: center;
+  justify-content: center;
+  text-align: left;
   /* min-width: 20px; */
 }
 

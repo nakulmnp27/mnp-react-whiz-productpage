@@ -17,7 +17,7 @@ export class PrismaTestimonialsRepository implements TestimonialsRepository {
   constructor(private readonly prisma: PrismaService) {}
   findByCourse(courseId: bigint) {
     return this.prisma.testimonial.findMany({
-      where: { courseId },
+      where: { courseId, isDeleted:false },
     })
   }
 
@@ -43,19 +43,20 @@ export class PrismaTestimonialsRepository implements TestimonialsRepository {
 
   update(id: bigint, message?: string, rating?: number, profile?: string) {
     return this.prisma.testimonial.update({
-      where: { id },
+      where: { id , isDeleted:false},
       data: { message, rating, profile },
     })
   }
 
   delete(id: bigint) {
-    return this.prisma.testimonial.delete({
+    return this.prisma.testimonial.update({
       where: { id },
+      data: {isDeleted: true}
     })
   }
   findCourseById(courseId: bigint) {
-  return this.prisma.course.findUnique({
-    where: { id: courseId },
+  return this.prisma.course.findFirst({
+    where: { id: courseId, isDeleted:false },
   })
 }
 }

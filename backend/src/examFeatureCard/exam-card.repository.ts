@@ -9,6 +9,7 @@ export interface ExamFeatureCardRepository {
   update( id: bigint, icon: string, text: string): Promise<ExamFeatureCard>
   delete(id: bigint): Promise<ExamFeatureCard>
   findCourseById(courseId: bigint): Promise<Course | null>
+  findById(id: bigint): Promise<ExamFeatureCard | null>
 }
 
 @Injectable()
@@ -16,7 +17,7 @@ export class PrismaExamFeatureCardRepository implements ExamFeatureCardRepositor
   constructor(private readonly prisma: PrismaService) {}
   findByCourse(courseId: bigint) {
     return this.prisma.examFeatureCard.findMany({
-      where: { courseId },
+      where: { courseId, isDeleted:false },
     })
   }
 
@@ -33,13 +34,23 @@ export class PrismaExamFeatureCardRepository implements ExamFeatureCardRepositor
   }
 
   delete(id: bigint) {
-    return this.prisma.examFeatureCard.delete({
-      where: { id },
+    return this.prisma.examFeatureCard.update({
+      where: { id},
+      data : {isDeleted : true}
     })
   }
   findCourseById(courseId: bigint) {
-    return this.prisma.course.findUnique({
-      where: { id: courseId },
+    return this.prisma.course.findFirst({
+      where: { id: courseId , isDeleted:false},
     })
   }
+  
+  findById(id: bigint) {
+  return this.prisma.examFeatureCard.findFirst({
+    where: {
+      id,
+      isDeleted: false
+    }
+  })
+}
 }

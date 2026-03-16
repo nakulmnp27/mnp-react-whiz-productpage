@@ -30,7 +30,7 @@ export default function ExamFormatSection({ examDetail, examInfo }: Props) {
     <div className=" container-lg bg-white shadow-sm mt-2" id="exam">
     <section className="exam-section container-fluid position-relative">
       <div className="row">
-          <div className="section-logo"><img src="/section-logo.png" alt="" /></div>
+          <div className="section-logo"><img src="/essentials/section-logo.png" alt="" /></div>
         <div className="col-lg-4 left-panel">
           {examDetail.map((item) => (
             <div key={item.id} className="mb-4 d-flex gap-3">

@@ -37,14 +37,10 @@ export default function WhyChoose({ features }: Props): JSX.Element {
           </div>
         </div>
         <div className="col-lg-4">
-          <div className="why-side-panel h-100 p-4">
-            <h2>Why get AWS AI Practitioner Certification?</h2>
-            <p>
-              You will undoubtedly learn a lot, regardless of your level of
-              experience with AI. This certification provides a strong
-              foundation for understanding how AI will be used in the future
-              and adds credibility in the tech community.
-            </p>
+          
+          <div className="why-side-panel p-4">
+            <h2>Why get AWS Cloud Practitioner Certification?</h2>
+            <p> You will undoubtedly learn a lot, regardless of your level of experience with AI. This certification provides a strong foundation for understanding how AI will be used in the future and adds credibility in the tech community. </p>
           </div>
         </div>
       </div>

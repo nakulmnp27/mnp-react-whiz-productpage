@@ -29,15 +29,21 @@ export class ExamFeatureCardService {
       dto.text.trim()
     )
   }
-  update(id: number, dto: UpdateExamFeatureCardDto) {
+
+  async update(id: number, dto: UpdateExamFeatureCardDto) {
+
     if (id <= 0) {
       throw new BadRequestException('invalid id')
     }
+    const existing = await this.repo.findById(BigInt(id))
+    if (!existing) {
+      throw new NotFoundException('exam feature card not found')
+    }
     try {
-      return this.repo.update(
+      return await this.repo.update(
         BigInt(id),
-        dto.icon?.trim() ?? '',
-        dto.text?.trim() ?? ''
+        dto.icon?.trim() ?? existing.icon,
+        dto.text?.trim() ?? existing.text
       )
     } 
     catch {
@@ -47,10 +53,13 @@ export class ExamFeatureCardService {
 
   remove(id: number) {
 
+    if (id <= 0) {
+    throw new BadRequestException('invalid id')
+    }
+
     try {
       return this.repo.delete(BigInt(id))
-    } 
-  catch {
+    } catch {
       throw new NotFoundException('exam feature card not found')
     }
   }

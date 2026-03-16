@@ -19,7 +19,7 @@ export default function CourseOverview({ points, description }: Props): JSX.Elem
 
   return (
     <div className="course_overview_container container-lg bg-white shadow-sm p-0 h-100">
-      <div className="overview-logo"><img src="/overview-logo.png" alt="" /></div>
+      <div className="overview-logo"><img src="/essentials/overview-logo.png" alt="" /></div>
       <div className="overview_box d-flex ps-5 pt-5 ">
         <div className="overview_box_left col-5 align-top">
           <p>Course Overview</p> 
@@ -30,7 +30,7 @@ export default function CourseOverview({ points, description }: Props): JSX.Elem
         </div>
       </div>
 
-      <div className="row g-4 pb-5">
+      <div className="row g-4 pb-5 mt-2">
         <div className="col-lg-6">
           <div className="p-4 rounded-4 h-100">
             <h5 className="features-heading mb-0 rounded-top p-3">Key Features of taking AWS Cloud Practioner Course? </h5>

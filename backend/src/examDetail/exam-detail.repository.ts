@@ -9,6 +9,7 @@ export interface ExamDetailRepository {
   update( id: bigint, heading: string, description: string ): Promise<CourseExamDetail>
   delete(id: bigint): Promise<CourseExamDetail>
   findCourseById(courseId: bigint): Promise<Course | null>
+  findById(id: bigint): Promise<CourseExamDetail | null>
 }
 
 @Injectable()
@@ -16,10 +17,10 @@ export class PrismaExamDetailRepository implements ExamDetailRepository {
   constructor(private readonly prisma: PrismaService) {}
   findByCourse(courseId: bigint) {
     return this.prisma.courseExamDetail.findMany({
-      where: { courseId }
+      where: { courseId, isDeleted:false }
     })
   }
-  create(courseId: bigint, heading: string, description: string) {
+create(courseId: bigint, heading: string, description: string) {
     return this.prisma.courseExamDetail.create({
       data: { courseId, heading, description }
     })
@@ -27,19 +28,25 @@ export class PrismaExamDetailRepository implements ExamDetailRepository {
 
   update(id: bigint, heading: string, description: string) {
     return this.prisma.courseExamDetail.update({
-      where: { id },
+      where: { id, isDeleted:false },
       data: { heading, description }
     })
   }
   delete(id: bigint) {
-    return this.prisma.courseExamDetail.delete({
-      where: { id }
+    return this.prisma.courseExamDetail.update({
+      where: { id },
+      data:{isDeleted:true}
     })
   }
 
   findCourseById(courseId: bigint) {
-    return this.prisma.course.findUnique({
-      where: { id: courseId }
+    return this.prisma.course.findFirst({
+      where: { id: courseId, isDeleted:false }
     })
   }
+  findById(id: bigint) {
+  return this.prisma.courseExamDetail.findFirst({
+    where: { id, isDeleted: false }
+  })
+}
 }

@@ -4,12 +4,12 @@ import { IsBoolean, IsNumber, IsOptional, IsPositive, IsString } from 'class-val
 
 export class CreatePricingDto {
 
-  @ApiProperty({ example: "full bundle" })
+  @ApiProperty({ example: "Video Courses" })
   @IsString()
   title: string
   
   @ApiProperty({
-    example: 999.99,
+    example: 99.99,
   })
   @IsNumber({ maxDecimalPlaces: 2 })
   @IsPositive()
@@ -20,7 +20,7 @@ export class CreatePricingDto {
   isticked: boolean
 
   @ApiProperty({
-    example: 499.99,
+    example: 49.99,
   })
   @IsNumber({ maxDecimalPlaces: 2 })
   @IsPositive()
@@ -34,13 +34,13 @@ export class UpdatePricingDto {
   @IsString()
   title?: string
 
-  @ApiPropertyOptional({ example: 1099.99 })
+  @ApiPropertyOptional({ example: 150.99 })
   @IsOptional()
   @IsNumber({ maxDecimalPlaces: 2 })
   @IsPositive()
   sellingPrice?: number
 
-  @ApiPropertyOptional({ example: 599.99 })
+  @ApiPropertyOptional({ example: 99.99 })
   @IsOptional()
   @IsNumber({ maxDecimalPlaces: 2 })
   @IsPositive()

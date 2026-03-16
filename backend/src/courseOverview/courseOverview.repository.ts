@@ -13,16 +13,12 @@ export class PrismaCourseOverviewRepository implements CourseOverviewRepository 
   constructor(private prisma: PrismaService) {}
   findByCourse(courseId: bigint) {
     return this.prisma.courseOverview.findMany({
-      where: { courseId }
+      where: { courseId, isDeleted:false }
     })
   }
 
-  upsert(courseId: bigint, data: {
-    id?: number
-    text: string
-    column: number
-  }) {
-    if (data.id) {
+  upsert(courseId: bigint, data: { id?: number; text: string; column: number }) {
+   if (data.id) {
       return this.prisma.courseOverview.update({
         where: { id: BigInt(data.id) },
         data: {
@@ -41,8 +37,8 @@ export class PrismaCourseOverviewRepository implements CourseOverviewRepository 
   }
 
   async delete(id: bigint) {
-    await this.prisma.courseOverview.delete({
-      where: { id }
+    await this.prisma.courseOverview.update({
+      where: { id },data:{isDeleted:true}
     })
   }
 }
