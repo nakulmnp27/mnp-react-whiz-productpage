@@ -8,7 +8,7 @@ export class CreateExamFeatureCardDto {
   @IsNotEmpty()
   icon: string
 
-  @ApiProperty({ example: 'The Amazon Web Services entry-level certification helps you secure job placements in the fast-growing AWS cloud computing industry, you may start learning the AWS CCP course and pass the exam to pursue your dream career.' })
+  @ApiProperty({ example: 'Make use of AWS Cloud technologies' })
   @IsString()
   @IsNotEmpty()
   text: string

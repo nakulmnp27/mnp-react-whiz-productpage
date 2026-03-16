@@ -33,4 +33,15 @@ export class PricingService {
     }
     return this.repo.update(BigInt(pricingId), data)
   }
+
+  async remove(id: number) {
+    if (id <= 0) {
+      throw new BadRequestException('invalid pricing id')
+    }
+    try {
+      return await this.repo.delete(BigInt(id))
+    } catch {
+      throw new NotFoundException('pricing not found')
+    }
+  }
 }

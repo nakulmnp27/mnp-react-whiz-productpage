@@ -7,6 +7,13 @@ import { TestimonialsService } from './testimonial.service'
 import { CreateTestimonialDto } from './dto/create-testimonial.dto'
 import { UpdateTestimonialDto } from './dto/update-testimonial.dto'
 
+
+import { UseGuards } from '@nestjs/common'
+import { JwtAuthGuard } from '../auth/jwt.guard'
+import { ApiBearerAuth } from '@nestjs/swagger'
+
+@ApiBearerAuth('access-token')
+@UseGuards(JwtAuthGuard)
 @ApiTags('Course Testimonials')
 @Controller()
 export class TestimonialsController {
@@ -23,7 +30,7 @@ export class TestimonialsController {
   ) {
     return this.service.create(courseId, dto)
   }
-  @Patch('testimonials/:testimonialId')
+@Patch('testimonials/:testimonialId')
   update(
     @Param('testimonialId', ParseIntPipe) testimonialId: number,
     @Body() dto: UpdateTestimonialDto,

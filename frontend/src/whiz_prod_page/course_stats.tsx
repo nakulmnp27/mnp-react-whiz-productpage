@@ -23,7 +23,7 @@ export default function CourseStats({ stats }: Props): JSX.Element {
           <div className="d-flex align-items-center gap-4">
 
             <div className="stat-icon">
-              <img src={s.icon ?? "/icons/default.png"} alt="" />
+              <img src={s.icon ?? "/default.png"} alt="" />
             </div>
 
             <div>

@@ -43,16 +43,17 @@ async update(id: number, dto: UpdateExamInfoDto) {
     dto.text?.trim() ?? existing.text,
   )
 }
-
-  async remove(courseId: number) {
-    if (courseId <= 0) {
-      throw new BadRequestException('invalid course id')
+  async remove(id: number) {
+    if (id <= 0) {
+      throw new BadRequestException('invalid id')
     }
 
-    const existing = await this.repo.findByCourse(BigInt(courseId))
+    const existing = await this.repo.findById(BigInt(id))
+
     if (!existing) {
       throw new NotFoundException('exam info not found')
     }
-    return this.repo.delete(BigInt(courseId))
+
+    return this.repo.delete(BigInt(id))
   }
 }

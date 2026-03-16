@@ -2,7 +2,12 @@ import { Controller, Get, Post, Put, Delete, Param, Body } from '@nestjs/common'
 import { CourseBenefitsService } from './course-benefit.service'
 import { CreateBenefitDto } from './dto/create-benefit.dto'
 import { UpdateBenefitDto } from './dto/update-benefit.dto'
+import { UseGuards } from '@nestjs/common'
+import { JwtAuthGuard } from '../auth/jwt.guard'
+import { ApiBearerAuth } from '@nestjs/swagger'
 
+@ApiBearerAuth('access-token')
+@UseGuards(JwtAuthGuard)
 @Controller('courses/:courseId/benefits')
 export class CourseBenefitsController {
   constructor(private readonly service: CourseBenefitsService) {}

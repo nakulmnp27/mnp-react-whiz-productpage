@@ -7,12 +7,18 @@ import { ExamInfoService } from './exam-info.service'
 import { CreateExamInfoDto } from './dto/create-exam-info.dto'
 import { UpdateExamInfoDto } from './dto/update-exam.dto'
 
+import { UseGuards } from '@nestjs/common'
+import { JwtAuthGuard } from '../auth/jwt.guard'
+import { ApiBearerAuth } from '@nestjs/swagger'
+
+@ApiBearerAuth('access-token')
+@UseGuards(JwtAuthGuard) 
 @ApiTags('Course Exam Info')
 @Controller()
 export class ExamInfoController {
   constructor(private readonly service: ExamInfoService) {}
 
-  @Get('courses/:courseId/exam-info')
+@Get('courses/:courseId/exam-info')
   get(@Param('courseId', ParseIntPipe) courseId: number) {
     return this.service.get(courseId)
   }
@@ -25,16 +31,16 @@ export class ExamInfoController {
     return this.service.create(courseId, dto)
   }
 
-    @Put('courses/:courseId/exam-info')
+@Put('exam-info/:id')
   update(
-    @Param('courseId', ParseIntPipe) courseId: number,
+    @Param('id', ParseIntPipe) id: number,
     @Body() dto: UpdateExamInfoDto,
   ) {
-    return this.service.update(courseId, dto)
+    return this.service.update(id, dto)
   }
 
-  @Delete('courses/:courseId/exam-info')
-  remove(@Param('courseId', ParseIntPipe) courseId: number) {
-    return this.service.remove(courseId)
+  @Delete('exam-info/:id')
+  remove(@Param('id', ParseIntPipe) id: number) {
+    return this.service.remove(id)
   }
 }

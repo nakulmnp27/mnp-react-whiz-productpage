@@ -7,6 +7,12 @@ import { ExamDetailService } from './exam-detail.service'
 import { CreateExamDetailDto } from './dto/create-examDetail.dto'
 import { UpdateExamDetailDto } from './dto/update-examDetail.dto'
 
+import { UseGuards } from '@nestjs/common'
+import { JwtAuthGuard } from '../auth/jwt.guard'
+import { ApiBearerAuth } from '@nestjs/swagger'
+
+@ApiBearerAuth('access-token')
+@UseGuards(JwtAuthGuard)
 @ApiTags('Exam Details')
 @Controller('courses/:courseId/exam-details')
 export class ExamDetailController {

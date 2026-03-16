@@ -1,18 +1,17 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Put,
-  Delete,
-  Param,
-  Body,
-  ParseIntPipe,
+import { Controller, Get, Post, Put,
+  Delete, Param, Body, ParseIntPipe,
 } from '@nestjs/common'
 import { ApiTags } from '@nestjs/swagger'
 import { FeaturesService } from './features.service'
 import { CreateFeatureDto } from './dto/create-feature.dto'
 import { UpdateFeatureDto } from './dto/update-feature.dto'
 
+import { UseGuards } from '@nestjs/common'
+import { JwtAuthGuard } from '../auth/jwt.guard'
+import { ApiBearerAuth } from '@nestjs/swagger'
+
+@ApiBearerAuth('access-token')
+@UseGuards(JwtAuthGuard)
 @ApiTags('Course Features')
 @Controller()
 export class FeaturesController {
@@ -23,7 +22,7 @@ export class FeaturesController {
     return this.service.getByCourse(courseId)
   }
 
-  @Post('courses/:courseId/features')
+@Post('courses/:courseId/features')
   create(
     @Param('courseId', ParseIntPipe) courseId: number,
     @Body() dto: CreateFeatureDto,

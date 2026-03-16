@@ -3,7 +3,13 @@ import { ApiTags } from '@nestjs/swagger'
 import { CourseOverviewService } from './courseOverview.service'
 import { UpsertCourseOverviewDto } from './dto/upsert-overview.dto'
 
-@ApiTags('Course Overview Points')
+import { UseGuards } from '@nestjs/common'
+import { JwtAuthGuard } from '../auth/jwt.guard'
+import { ApiBearerAuth } from '@nestjs/swagger'
+
+@ApiBearerAuth('access-token')
+@UseGuards(JwtAuthGuard)
+@ApiTags('Course Overview')
 @Controller('courses/:courseId/overview-points')
 export class CourseOverviewController {
   constructor(private service: CourseOverviewService) {}

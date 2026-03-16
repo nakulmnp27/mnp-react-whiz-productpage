@@ -15,7 +15,7 @@ export class PrismaFaqsRepository implements FaqsRepository {
   constructor(private readonly prisma: PrismaService) {}
   findByCourse(courseId: bigint) {
     return this.prisma.faq.findMany({
-      where: { courseId },
+      where: { courseId, isDeleted:false },
     })
   }
 
@@ -30,19 +30,20 @@ export class PrismaFaqsRepository implements FaqsRepository {
   }
   update(id: bigint, answer: string) {
     return this.prisma.faq.update({
-      where: { id },
+      where: { id , isDeleted:false},
       data: { answer },
     })
   }
   delete(id: bigint) {
-    return this.prisma.faq.delete({
+    return this.prisma.faq.update({
       where: { id },
+      data : {isDeleted : true}
     })
   }
 
-  findCourseById(courseId: bigint) {
-  return this.prisma.course.findUnique({
-    where: { id: courseId },
+findCourseById(courseId: bigint) {
+  return this.prisma.course.findFirst({
+    where: { id: courseId , isDeleted:false},
   })
 }
 }

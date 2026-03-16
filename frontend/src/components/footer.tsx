@@ -7,14 +7,14 @@ export default function Footer() {
         <div className="footer1-overlay"></div>
 
         <div className="footer-logo">
-          <img src="footer-logo.png" alt="" />
+          <img src="/essentials/footer-logo.png" alt="" />
         </div>
 
         <div className="container-fluid">
           <div className="row align-items-center">
 
             <div className="footer-left d-flex col-lg-6 px-5 text-white justify-content-center justify-content-lg-start">
-              <div className="footer-one d-flex flex-column align-items-center align-items-lg-start w-100">
+              <div className="footer-one d-flex flex-column align-items-center align-items-lg-start w-100 px-5 mx-5">
                 <h1 className="footer1-title text-center text-lg-start">
                   Want to be the <br />cloud
                   <span className="cta-highlight">expert your <br /></span>
@@ -28,7 +28,7 @@ export default function Footer() {
               </div>
 
               <div className="team-img p-0 col-lg-6">
-                <img src="team.png" alt="" />
+                <img src="/essentials/team.png" alt="" />
               </div>
 
             </div>
@@ -42,7 +42,7 @@ export default function Footer() {
           <div className="row footer-grid">
 
             <div className="col-lg-3 footer-col-1">
-              <img src="/logo1.png" alt="whizlabs_logo" />
+              <img src="/essentials/logo1.png" alt="whizlabs_logo" />
               <p>
                 Want to keep in touch? Follow us on your preferred social media
                 platforms
@@ -211,7 +211,7 @@ export default function Footer() {
                 </div>
 
                 <div className="cus-support">
-                  <img src="/contact.png" alt="contact" />
+                  <img src="/essentials/contact-footer.png" alt="contact" />
 
                   <div>
                     <h6>Customer Support</h6>
@@ -221,7 +221,7 @@ export default function Footer() {
                 </div>
 
                 <div className="cus-support">
-                  <img src="/business.png" alt="business" />
+                  <img src="/essentials/business-footer.png" alt="business" />
 
                   <div>
                     <h6>For Business</h6>
@@ -235,19 +235,19 @@ export default function Footer() {
 
               <div className="external-links">
                 <a href="https://www.facebook.com/whizlabs.software/" target="_blank">
-                  <img src="/fb.png" alt="Facebook" />
+                  <img src="/essentials/fb.png" alt="Facebook" />
                 </a>
 
                 <a href="https://twitter.com/" target="_blank">
-                  <img src="/assets/x.png" alt="Twitter" />
+                  <img src="/essentials/x.png" alt="Twitter" />
                 </a>
 
                 <a href="https://www.linkedin.com/company/whizlabs-software/" target="_blank">
-                  <img src="/assets/ln.png" alt="LinkedIn" />
+                  <img src="/essentials/linkedin.png" alt="LinkedIn" />
                 </a>
 
                 <a href="https://www.youtube.com/c/WhizlabsSoftware/videos" target="_blank">
-                  <img src="/assets/youtube.png" alt="Youtube" />
+                  <img src="/essentials/youtube.png" alt="Youtube" />
                 </a>
               </div>
 

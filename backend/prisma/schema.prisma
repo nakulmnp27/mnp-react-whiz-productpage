@@ -9,14 +9,15 @@ datasource db {
 
 model Course {
   id          BigInt   @id @default(autoincrement())
-  title       String   @db.VarChar(255)
+  title       String   @unique @db.VarChar
   description String   @db.VarChar
-  benefitsMessage     String @db.VarChar(500)
+  benefitsMessage     String @db.VarChar
   
 
   rating      Float?
   learners    BigInt?
 
+  isDeleted Boolean @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -27,32 +28,41 @@ model Course {
   faqs         Faq[]
   testimonials Testimonial[]
   examInfo     ExamInfo[]
-  eligibility  EligibilityPoint[]
+//  eligibility  EligibilityPoint[]
   courseOverview  CourseOverview[]
   courseBenefits   CourseBenefit[]
   examFeatureCards ExamFeatureCard[]
+
+   @@index([title])
+   @@index([createdAt])
+   @@index([isDeleted])
 }
 
 model Pricing {
   id           BigInt @id @default(autoincrement())
-  title        String @db.VarChar(100)
+  title        String @db.VarChar
   sellingPrice Float
   offerPrice    Float
   isticked     Boolean @default(false)
 
+  isDeleted Boolean @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   courseId BigInt 
   course   Course @relation(fields: [courseId], references: [id])
+
+  @@index([courseId])
+  @@index([isDeleted])
 }
 
 model CourseFeature {
   id   BigInt @id @default(autoincrement())
-  icon  String @db.VarChar(500)
-  title String @db.VarChar(500)
+  icon  String @db.VarChar
+  title String @db.VarChar
   description   String   @db.VarChar(200)
 
+  isDeleted Boolean @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -60,26 +70,33 @@ model CourseFeature {
   course   Course @relation(fields: [courseId], references: [id])
 
   @@unique([courseId, title])
+  @@index([courseId])
+  @@index([isDeleted])
 }
 
 model CourseStat {
   id    BigInt @id @default(autoincrement())
-  icon   String  @db.VarChar(255)
-  label String @db.VarChar(100)
-  value String @db.VarChar(100)
+  icon   String  @db.VarChar
+  label String @db.VarChar
+  value String @db.VarChar
 
+  isDeleted Boolean @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   courseId BigInt
   course   Course @relation(fields: [courseId], references: [id])
+
+  @@index([courseId])
+  @@index([isDeleted])
 }
 
 model Faq {
   id       BigInt @id @default(autoincrement())
-  question String @db.VarChar(500)
-  answer   String @db.VarChar(2000)
+  question String @db.VarChar
+  answer   String @db.VarChar
 
+  isDeleted Boolean @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -87,57 +104,69 @@ model Faq {
   course   Course @relation(fields: [courseId], references: [id])
 
   @@unique([courseId, question])
+  @@index([courseId])
+  @@index([isDeleted])
 }
 
 model Testimonial {
   id      BigInt @id @default(autoincrement())
-  name    String @db.VarChar(150)
-  role    String? @db.VarChar(150)
-  message String @db.VarChar(1000)
+  name    String @db.VarChar
+  role    String? @db.VarChar
+  message String @db.VarChar
   rating  Float
-  profile  String @db.VarChar(30)
+  profile  String @db.VarChar
 
+  isDeleted Boolean @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   courseId BigInt
   course   Course @relation(fields: [courseId], references: [id])
+
+  @@index([courseId])
+  @@index([isDeleted])
 }
 
 model ExamInfo {
   id       BigInt @id @default(autoincrement())
-  icon  String @db.VarChar(100)
-  heading String @db.VarChar(100)
-  text String @db.VarChar(100)
+  icon  String @db.VarChar
+  heading String @db.VarChar
+  text String @db.VarChar
 
+  isDeleted Boolean @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   courseId BigInt 
   course   Course @relation(fields: [courseId], references: [id])
    @@unique([courseId, heading])
+   @@index([courseId])
+   @@index([isDeleted])
 }
 
-model EligibilityPoint {
-  id   BigInt @id @default(autoincrement())
-  heading  String  @db.VarChar(50)
-  text String @db.VarChar(500)
+// model EligibilityPoint {
+// id   BigInt @id @default(autoincrement())
+//  heading  String  @db.VarChar
+//  text String @db.VarChar
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+// isDeleted Boolean @default(false)
+//  createdAt DateTime @default(now())
+//  updatedAt DateTime @updatedAt
 
-  courseId BigInt
-  course   Course @relation(fields: [courseId], references: [id])
+//  courseId BigInt
+//  course   Course @relation(fields: [courseId], references: [id])
 
-  @@unique([courseId, text])
-}
+ // @@unique([courseId, text])
+ // @@index([courseId])
+ // @@index([isDeleted])
+// }
 
 model CourseOverview {
   id        BigInt @id @default(autoincrement())
-  text      String @db.VarChar(500)
-
+  text      String @db.VarChar
   column    Int
 
+  isDeleted Boolean @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -145,14 +174,16 @@ model CourseOverview {
   course    Course @relation(fields: [courseId], references: [id])
 
   @@unique([courseId, text])
+  @@index([courseId])
+  @@index([isDeleted])
 }
 
 model CourseBenefit {
   id          BigInt @id @default(autoincrement())
+  title       String @db.VarChar
+  description String @db.VarChar
 
-  title       String @db.VarChar(50)
-  description String @db.VarChar(200)
-
+  isDeleted Boolean @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -160,14 +191,16 @@ model CourseBenefit {
   course   Course @relation(fields: [courseId], references: [id])
 
   @@unique([courseId, title])
+  @@index([courseId])
+  @@index([isDeleted])
 }
 
 model CourseExamDetail {
   id          BigInt   @id @default(autoincrement())
+  heading     String   @db.VarChar
+  description String   @db.VarChar
 
-  heading     String   @db.VarChar(100)
-  description String   @db.VarChar(1000)
-
+  isDeleted Boolean @default(false)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
@@ -175,14 +208,16 @@ model CourseExamDetail {
   course      Course   @relation(fields: [courseId], references: [id])
 
   @@unique([courseId, heading])
+  @@index([courseId])
+  @@index([isDeleted])
 }
 
 model ExamFeatureCard {
   id   BigInt @id @default(autoincrement())
+  icon String @db.VarChar
+  text String @db.VarChar
 
-  icon String @db.VarChar(500)
-  text String @db.VarChar(300)
-
+  isDeleted Boolean @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
@@ -190,5 +225,21 @@ model ExamFeatureCard {
   course   Course @relation(fields: [courseId], references: [id])
 
   @@unique([courseId, text])
+  @@index([courseId])
+  @@index([isDeleted])
 }
 
+model User {
+  id        BigInt   @id @default(autoincrement())
+  name      String   @db.VarChar
+  email     String   @unique @db.VarChar
+  password  String   @db.VarChar
+  role      String   @default("admin")
+
+  isDeleted Boolean  @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([email])
+}

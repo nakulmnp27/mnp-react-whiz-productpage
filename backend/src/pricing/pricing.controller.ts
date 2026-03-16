@@ -1,7 +1,10 @@
-import { Controller, Post, Body, Param, Get, Put, ParseIntPipe } from '@nestjs/common'
+import { Controller, Post, Body, Param, Get, Put, ParseIntPipe, Delete } from '@nestjs/common'
 import { ApiParam, ApiTags } from '@nestjs/swagger'
 import { PricingService } from './pricing.service'
 import { CreatePricingDto, UpdatePricingDto } from './dto/pricing.dto'
+import { UseGuards } from '@nestjs/common'
+import { JwtAuthGuard } from '../auth/jwt.guard'
+import { ApiBearerAuth } from '@nestjs/swagger'
 
 @ApiTags('Pricing')
 @ApiParam({
@@ -12,6 +15,8 @@ import { CreatePricingDto, UpdatePricingDto } from './dto/pricing.dto'
 })
 
 
+@ApiBearerAuth('access-token')
+@UseGuards(JwtAuthGuard)
 @Controller('pricing')
 export class PricingController {
   constructor(private readonly pricingService: PricingService) {}
@@ -37,6 +42,12 @@ export class PricingController {
     @Body() dto: UpdatePricingDto,
   ) {
     return this.pricingService.update(pricingId, dto)
+  }
+  @Delete('pricing/:id')
+  remove(
+    @Param('id', ParseIntPipe) id: number
+  ) {
+    return this.pricingService.remove(id)
   }
 }
 

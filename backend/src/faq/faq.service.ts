@@ -60,11 +60,11 @@ export class FaqsService {
       throw new BadRequestException('invalid faq id')
     }
 
+
+    
     try {
       return this.repo.delete(BigInt(faqId))
     }
-
-    
     catch {
       throw new NotFoundException('faq not found')
     }

@@ -16,14 +16,24 @@ async function bootstrap() {
     }),
   )
 
-  const config = new DocumentBuilder()
-    .setTitle('Courses API')
-    .setDescription('Course management backend')
-    .setVersion('1.0')
-    .build()
 
-  const document = SwaggerModule.createDocument(app, config)
-  SwaggerModule.setup('docs', app, document)
+const config = new DocumentBuilder()
+  .setTitle('Course API')
+  .setDescription('Course management API')
+  .setVersion('1.0')
+  .addBearerAuth(
+    {
+      type: 'http',
+      scheme: 'bearer',
+      bearerFormat: 'JWT'
+    },
+    'access-token'
+  )
+  .build()
+
+const document = SwaggerModule.createDocument(app, config)
+SwaggerModule.setup('docs', app, document)
+
   app.enableCors();
 
   const port = process.env.PORT ?? 3000

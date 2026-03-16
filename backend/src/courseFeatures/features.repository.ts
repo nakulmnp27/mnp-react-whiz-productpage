@@ -15,7 +15,7 @@ export class PrismaFeaturesRepository implements FeaturesRepository {
   constructor(private readonly prisma: PrismaService) {}
   findByCourse(courseId: bigint) {
     return this.prisma.courseFeature.findMany({
-      where: { courseId },
+      where: { courseId, isDeleted:false },
     })
   }
 
@@ -29,7 +29,7 @@ export class PrismaFeaturesRepository implements FeaturesRepository {
       },
     })
   }
-  update(id: bigint, icon?: string, title?: string, description?: string) {
+  update(id: bigint, icon?: string, title?: string, description?: string){
     return this.prisma.courseFeature.update({
       where: { id },
       data: {
@@ -40,14 +40,16 @@ export class PrismaFeaturesRepository implements FeaturesRepository {
     })
   }
   delete(id: bigint) {
-    return this.prisma.courseFeature.delete({
+    return this.prisma.courseFeature.update({
       where: { id },
+      data: {
+        isDeleted: true }
     })
   }
 
   findCourseById(courseId: bigint) {
     return this.prisma.course.findUnique({
-      where: { id: courseId },
+  where: { id: courseId, isDeleted:false },
     })
   }
 }

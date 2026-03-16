@@ -13,7 +13,7 @@ export default function Navbar(): JSX.Element {
       <div className="wrapBox container-fluid px-4">
 
         <NavLink className="logoThing navbar-brand" to="/">
-          <img src="/logo1.png" alt="logo" height="28" />
+          <img src="/essentials/logo1.png" alt="logo" height="28" />
         </NavLink>
 
         <button
@@ -70,19 +70,11 @@ export default function Navbar(): JSX.Element {
           <div className="rightBtns d-flex gap-2">
 
             <button className="btn btn-link p-1">
-              <img
-                src="/search.png"
-                alt="Search"
-                style={{ width: "18px" }}
-              />
+              <img src="/essentials/search.png" alt="Search" style={{ width: "18px" }} />
             </button>
 
             <button className="btn btn-link p-1">
-              <img
-                src="/cart.png"
-                alt="Cart"
-                style={{ width: "18px" }}
-              />
+              <img src="/essentials/cart.png" alt="Cart" style={{ width: "18px" }} />
             </button>
 
             <button

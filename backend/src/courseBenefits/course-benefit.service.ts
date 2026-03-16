@@ -66,7 +66,8 @@ export class CourseBenefitsService {
     }
     try {
       return this.repo.delete(BigInt(benefitId))
-    } catch {
+    }
+    catch{
       throw new NotFoundException('benefit not found')
     }
   }
