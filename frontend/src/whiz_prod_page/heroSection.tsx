@@ -80,7 +80,7 @@ const HeroSection = ({
           <h1 className="course-title"> {title} </h1>
           <div className="banner-box d-flex justify-content-between align-items-center mb-4">
             <div>
-              Download Cheat Sheet – Quick reference
+              Download Cheat Sheet - Quick reference
             </div>
 
             <button id="download-btn" className="btn btn-sm download-btn"> Download </button>
