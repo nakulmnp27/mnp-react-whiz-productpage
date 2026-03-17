@@ -105,7 +105,7 @@ npm run prisma:seed
 Insert initial course details of the AWS Certified Cloud Practitioner (CLF-C02) in the id : 1.
 
 ```bash
-npm run prisma:seed
+npm run prisma:seed1
 ```
 
 ---
@@ -148,6 +148,7 @@ npm install
 
 Create a `.env` file in the **frontend root directory** and update as per the .env.example file.
 
+### NOTE
 This variable is used by the frontend application to communicate with the backend API.
 
 ---
